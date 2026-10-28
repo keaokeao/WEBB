@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOODPICKER ITF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .navbar {
+            background-color: #1a1a1a;
+            color: #00ff66; /* ตัวอักษรสีเขียวนีออน */
+            width: 100%;
+            height: 60px;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0, 255, 102, 0.1);
+            border-bottom: 1px solid #222;
+        }
+        .nav-id, .nav-week {
+            font-size: 14px;
+            opacity: 0.8;
+            width: 100px;
+        }
+        .nav-week {
+            text-align: right;
+        }
+        .nav-title {
+            font-size: 20px;
+            letter-spacing: 1px;
+            text-align: center;
+            flex-grow: 1;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.3);
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+        }
+        .food-card {
+            background-color: #1e1e1e;
+            border-radius: 20px;
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 25px;
+            border: 1px solid #2a2a2a;
+        }
+        .food-image-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2a2a2a;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid #00ff66; /* ขอบรูปภาพสีเขียว */
+        }
+        .food-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .food-name {
+            color: #00ff66;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(0, 255, 102, 0.2);
+        }
+        .food-description {
+            color: #aaa;
+            font-size: 15px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .food-price {
+            display: inline-block;
+            background-color: #252525;
+            color: #00ff66;
+            border: 1px solid #00ff66;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.1);
+        }
+        .random-btn {
+            background-color: #00ff66;
+            color: #121212;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3);
+            transition: all 0.2s ease;
+        }
+        .random-btn:hover {
+            background-color: #00dd55;
+            box-shadow: 0 4px 20px rgba(0, 255, 102, 0.5);
+            transform: translateY(-1px);
+        }
+        .random-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-id">69070031</div>
+        <div class="nav-title">FOODPICKER ITF</div>
+        <div class="nav-week">Week15</div>
+    </nav>
+    <div class="main-container">
+        <div class="food-card">
+            <div class="food-image-container">
+                <img id="foodImage" src="Kaomankai.jpg" alt="รูปเมนูอาหาร">
+            </div>
+            <div id="foodName" class="food-name">ข้าวมันไก่</div>
+            <div id="foodDesc" class="food-description">น้ำจิ้มเด็ด น้ำซุปร้อนๆ หอมนุ่ม</div>
+            <div id="foodPrice" class="food-price">ราคา 50-65 บาท</div>
+        </div>
+        <button class="random-btn" onclick="randomFood()">สุ่มเมนูอาหาร</button>
+    </div>
+    <script>
+        const foodList = [
+            {
+                name: "ข้าวมันไก่",
+                desc: "น้ำจิ้มเด็ด น้ำซุปร้อนๆ เนื้อไก่นุ่มชุ่มฉ่ำ",
+                price: "50-65 บาท",
+                image: "Kaomankai.jpg"
+            },
+            {
+                name: "ผัดไทยกุ้งสด",
+                desc: "เส้นจันท์เหนียวนุ่ม ผัดซอสเข้มข้น ครบรสเปรี้ยวหวานเค็ม",
+                price: "60-80 บาท",
+                image: "Padthai.jpg"
+            },
+            {
+                name: "กะเพราหมูกรอบ",
+                desc: "หมูกรอบแท้ๆ ผัดใบกะเพราป่าพริกแห้ง เผ็ดร้อนสะใจ",
+                price: "55-70 บาท",
+                image: "Kaprao.jpg"
+            },
+            {
+                name: "ข้าวหมูแดงหมูกรอบ",
+                desc: "น้ำราดสูตรโบราณ หอมกุนเชียงและไข่ต้มยางตูม",
+                price: "50-65 บาท",
+                image: "MudaengMukrob.jpg"
+            },
+            {
+                name: "ต้มยำกุ้งน้ำข้น",
+                desc: "สมุนไพรจัดเต็ม รสชาติแซ่บถึงใจ กุ้งแม่น้ำตัวโต",
+                price: "80-120 บาท",
+                image: "Tomyumkung.jpg"
+            }
+        ];
+
+        function randomFood() {
+            const randomIndex = Math.floor(Math.random() * foodList.length);
+            const selectedFood = foodList[randomIndex];
+
+            document.getElementById("foodImage").src = selectedFood.image;
+            document.getElementById("foodName").innerText = selectedFood.name;
+            document.getElementById("foodDesc").innerText = selectedFood.desc;
+            document.getElementById("foodPrice").innerText = "ราคา " + selectedFood.price;
+        }
+    </script>
+</body>
+</html>
